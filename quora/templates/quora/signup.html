@@ -16,20 +16,54 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body style="margin: 2rem; display: flex; flex-direction: column; align-items: center;">
-    <form method="POST" style="display: flex; flex-direction: column; width: 20%;">
-        {% csrf_token %}
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" style="margin-bottom: 1rem;">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" name="firstName" style="margin-bottom: 1rem;">
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" name="lastName" style="margin-bottom: 1rem;">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" style="margin-bottom: 1rem;">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" style="margin-bottom: 1rem;">
-        <button type="submit" style="width: 40%; margin: auto; background-color: white;">SignUp</button>
-    </form>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a class="navbar-brand" href="/quora">Quora Clone</a>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/quora">Home</a>
+            </li>
+            {% if not loggedIn %}
+              <li class="nav-item">
+                  <a class="nav-link" href="/quora/login">Login</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/quora/signup">SignUp</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                  <a class="nav-link" href="logout">Logout</a>
+              </li>
+            {% endif %}
+          </ul>
+          {% if loggedIn %}
+            <form action="post-question" class="d-flex">
+              <button class="btn btn-outline-danger" type="submit">Post Question</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+    <main style="margin: 2rem; display: flex; flex-direction: column; align-items: center;">
+      <form method="POST" style="display: flex; flex-direction: column; width: 20%;">
+          {% csrf_token %}
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" style="margin-bottom: 1rem;" required>
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" name="firstName" style="margin-bottom: 1rem;" required>
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" name="lastName" style="margin-bottom: 1rem;" required>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" style="margin-bottom: 1rem;" required>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" style="margin-bottom: 1rem;" required>
+          <button type="submit" style="width: 40%; margin: auto; background-color: white;">SignUp</button>
+      </form>
+  </main>
   </body>
 </html>
